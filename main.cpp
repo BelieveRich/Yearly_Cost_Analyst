@@ -21,9 +21,9 @@ enum eCostTypes
     Meals = 0,
     Drinks,
     Gas,
-    Mortage,
+    Mortgage,
     Dating
-}
+};
 
 struct cost_t
 {
@@ -49,24 +49,24 @@ public:
 		{
 				switch (eCost){
 				case Meals:
-						cout << m_cost.meals << '\t' << m_cost.meals * 365 * 10 << '\t' << m_cost.meals * 365 * 30
-								<< '\t' << m_cost.meals * 365 * m_life_time;
+						cout << m_cost.meals << "\t\t\t" << m_cost.meals * 365 * 10 << "\t\t" << m_cost.meals * 365 * 30
+								<< "\t\t" << m_cost.meals * 365 * m_life_time << endl;
         		break; 
 		 		case Drinks:
-						cout << m_cost.drinks << '\t' << m_cost.drinks * 365 * 10 << '\t' << m_cost.drinks * 365 * 30
-						        << '\t' << m_cost.drinks * 365 * m_life_time;
+						cout << m_cost.drinks << "\t\t\t" << m_cost.drinks * 365 * 10 << "\t\t" << m_cost.drinks * 365 * 30
+						        << "\t\t" << m_cost.drinks * 365 * m_life_time << endl;
                 break;
 				case Gas:
-						cout << m_cost.gas << '\t' << m_cost.gas * 365 * 10 << '\t' << m_cost.gas * 365 * 30
-						        << '\t' << m_cost.gas * 365 * m_life_time;
+						cout << m_cost.gas << "\t\t\t" << m_cost.gas * 365 * 10 << "\t\t" << m_cost.gas * 365 * 30
+						        << "\t\t" << m_cost.gas * 365 * m_life_time << endl;
                 break;
-				case Mortage:
-						cout << m_cost.mortgage << '\t' << m_cost.mortgage * 365 * 10 << '\t' << m_cost.mortgage * 365 * 30
-						        << '\t' << m_cost.mortgage * 365 * m_life_time;
+				case Mortgage:
+						cout << m_cost.mortgage << "\t\t" << m_cost.mortgage * 365 * 10 << "\t\t" << m_cost.mortgage * 365 * 30
+						        << "\t\t" << m_cost.mortgage * 365 * m_life_time << endl;
                 break;
 				case Dating:
-						cout << m_cost.dating << '\t' << m_cost.dating * 365 * 10 << '\t' << m_cost.dating * 365 * 30
-						         << '\t' << m_cost.dating * 365 * m_life_time;
+						cout << m_cost.dating << "\t\t\t" << m_cost.dating * 365 * 10 << "\t\t" << m_cost.dating * 365 * 30
+						         << "\t\t" << m_cost.dating * 365 * m_life_time << endl;
 				break;
 				default:
 						cout << "Invalid option to display!" << endl;
@@ -125,22 +125,30 @@ do
 		cin >> nOption;
 		switch (nOption){
 			case 1:
+			{	
 				DisplayMenu(MainPerson);
 				break;
+			}
 			case 2:
+			{
 				uint16_t item_num = 9999;
 				float amount = 0.0f;
 				cout << "Enter the item to be modified and amount: ";
 				cin >> item_num >> amount;
 				MainPerson->ModifySetting(item_num, amount);
 				break;
+			}
 			case 3:
+			{
 				printf("Exiting the program!\n");
 				exit = TRUE;
 				break;
+			}
 			default:
+			{
 				printf("Incorrect input");
-				break;	
+				break;
+			}	
 		}
 }while(!exit);
 		return 0;
@@ -153,9 +161,14 @@ void DisplayMenu(CPerson* MainPerson)
 		cout << "|                Richard's Cost Analysis for Life Time(80)            |\n";
 		cout << "=======================================================================\n";
 		cout << "Itemized Cost\tDaily Cost\t10 Years Cost\t30 Years Cost\tLifeTime Cost\n";
-		cout << "1. Meals\t" << MainPerson->Display(Meals);
-		cout << "2. Drinks\t" << MainPerson->Display(Drinks);
-		cout << "3. Gas\t" << MainPerson->Display(Gas);
-		cout << "4. Mortgage Or Housing\t"<< MainPerson->Display(Mortgage);
-		cout << "5. Dating\t"<< MainPerson->Display(Dating);
+		cout << "1. Meals\t"; 
+		(void)MainPerson->Display(Meals);
+		cout << "2. Drinks\t";
+		(void)MainPerson->Display(Drinks);
+		cout << "3. Gas\t\t";
+		(void)MainPerson->Display(Gas);
+		cout << "4. Mortgage Or Housing\t";
+		(void)MainPerson->Display(Mortgage);
+		cout << "5. Dating\t";
+		(void)MainPerson->Display(Dating);
 }
