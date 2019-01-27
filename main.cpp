@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <cstring>
 #include <cstddef>
+#include <iomanip>
 
 using namespace std;
 
@@ -22,7 +23,8 @@ enum eCostTypes
     Drinks,
     Gas,
     Mortgage,
-    Dating
+    Dating,
+	Sum
 };
 
 struct cost_t
@@ -47,26 +49,31 @@ public:
 
 		void Display(eCostTypes eCost)
 		{
+				cout.setf(ios::fixed);
+				cout << setprecision(0);
 				switch (eCost){
 				case Meals:
-						cout << m_cost.meals << "\t\t\t" << m_cost.meals * 365 * 10 << "\t\t" << m_cost.meals * 365 * 30
+						cout << m_cost.meals << "\t\t" << (float)(m_cost.meals * 365 * 1) << "\t\t" << m_cost.meals * 365 * 10
 								<< "\t\t" << m_cost.meals * 365 * m_life_time << endl;
         		break; 
 		 		case Drinks:
-						cout << m_cost.drinks << "\t\t\t" << m_cost.drinks * 365 * 10 << "\t\t" << m_cost.drinks * 365 * 30
+						cout << m_cost.drinks << "\t\t" << m_cost.drinks * 365 * 1 << "\t\t" << m_cost.drinks * 365 * 10
 						        << "\t\t" << m_cost.drinks * 365 * m_life_time << endl;
                 break;
 				case Gas:
-						cout << m_cost.gas << "\t\t\t" << m_cost.gas * 365 * 10 << "\t\t" << m_cost.gas * 365 * 30
+						cout << m_cost.gas << "\t\t" << m_cost.gas * 365 * 1 << "\t\t" << m_cost.gas * 365 * 10
 						        << "\t\t" << m_cost.gas * 365 * m_life_time << endl;
                 break;
 				case Mortgage:
-						cout << m_cost.mortgage << "\t\t" << m_cost.mortgage * 365 * 10 << "\t\t" << m_cost.mortgage * 365 * 30
+						cout << m_cost.mortgage << "\t\t" << m_cost.mortgage * 365 * 1 << "\t\t" << m_cost.mortgage * 365 * 10
 						        << "\t\t" << m_cost.mortgage * 365 * m_life_time << endl;
                 break;
 				case Dating:
-						cout << m_cost.dating << "\t\t\t" << m_cost.dating * 365 * 10 << "\t\t" << m_cost.dating * 365 * 30
+						cout << m_cost.dating << "\t\t" << m_cost.dating * 365 * 1 << "\t\t" << m_cost.dating * 365 * 10
 						         << "\t\t" << m_cost.dating * 365 * m_life_time << endl;
+				break;
+				case Sum:
+						DisplaySum();
 				break;
 				default:
 						cout << "Invalid option to display!" << endl;
@@ -74,7 +81,14 @@ public:
 				}
 		}
 		
-		// This is the change the cost amount within member structure
+		void DisplaySum()
+		{
+				float dailySum = m_cost.meals + m_cost.drinks + m_cost.gas + m_cost.mortgage + m_cost.dating;
+				cout << dailySum << "\t\t" << dailySum * 365 * 1 << "\t\t" << dailySum * 365 * 10 << "\t\t"
+						<< dailySum * 365 * m_life_time << endl;
+		}
+
+		// This is to change the cost amount within member structure
 		void ModifySetting(uint16_t item_num, float amount)
 		{
 				// Error checking: Amount need >= 0
@@ -85,17 +99,25 @@ public:
 				}
 				switch (item_num){
 						case 1:
+						{
 							m_cost.meals = amount;
+							break;
+						}
 						case 2:
 							m_cost.drinks = amount;
+						break;
 						case 3:
 							m_cost.gas = amount;
+						break;
 						case 4:
 							m_cost.mortgage = amount;
+						break;
 						case 5:
 							m_cost.dating = amount;
+						break;
 						default:
 							cout << "Invalid item chosen!\n";
+						break;
 				}
 		}
 private:
@@ -157,18 +179,20 @@ do
 void DisplayMenu(CPerson* MainPerson)
 {
 		cout << "\n\n\n\n\n";
-		cout << "=======================================================================\n";
-		cout << "|                Richard's Cost Analysis for Life Time(80)            |\n";
-		cout << "=======================================================================\n";
-		cout << "Itemized Cost\tDaily Cost\t10 Years Cost\t30 Years Cost\tLifeTime Cost\n";
+		cout << "==============================================================================\n";
+		cout << "|                   Richard's Cost Analysis for Life Time(80)                |\n";
+		cout << "==============================================================================\n";
+		cout << "Itemized Cost\tDaily Cost\t1 Year Cost\t10 Years Cost\tLifeTime Cost\n";
 		cout << "1. Meals\t"; 
 		(void)MainPerson->Display(Meals);
 		cout << "2. Drinks\t";
 		(void)MainPerson->Display(Drinks);
 		cout << "3. Gas\t\t";
 		(void)MainPerson->Display(Gas);
-		cout << "4. Mortgage Or Housing\t";
+		cout << "4. Mortgage\t";
 		(void)MainPerson->Display(Mortgage);
 		cout << "5. Dating\t";
 		(void)MainPerson->Display(Dating);
+		cout << "\n\nTOTAL\t\t";
+		(void)MainPerson->Display(Sum);
 }
